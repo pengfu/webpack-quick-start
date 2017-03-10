@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start":"webpack --progress --colors"
+    "start": "webpack --progress --colors"
   },
   "repository": {
     "type": "git",
@@ -22,6 +22,9 @@
   },
   "homepage": "https://github.com/pengfu/webpack-quick-start#readme",
   "devDependencies": {
+    "babel-core": "^6.23.1",
+    "babel-loader": "^6.4.0",
+    "babel-preset-es2015": "^6.22.0",
     "css-loader": "^0.27.1",
     "style-loader": "^0.13.2",
     "webpack": "^2.2.1"

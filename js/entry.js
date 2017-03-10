@@ -1,4 +1,5 @@
 // require('!style!css!./style.css')
-require('../css/style.css')
+import '../css/style.css'
 document.write('It works.')
-document.write(require('../js/module.js'))
+import content from  '../js/module.js'
+document.write(content)

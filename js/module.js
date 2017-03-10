@@ -1,1 +1,1 @@
-module.exports = 'It works from module.js.'
+export default 'It works from module.js.'

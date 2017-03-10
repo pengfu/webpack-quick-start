@@ -1,0 +1,29 @@
+{
+  "name": "webpack-quick-start",
+  "version": "1.0.0",
+  "description": "A quick-start demo.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start":"webpack --progress --colors"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pengfu/webpack-quick-start.git"
+  },
+  "keywords": [
+    "webpack",
+    "quick-start"
+  ],
+  "author": "chang_su",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pengfu/webpack-quick-start/issues"
+  },
+  "homepage": "https://github.com/pengfu/webpack-quick-start#readme",
+  "devDependencies": {
+    "css-loader": "^0.27.1",
+    "style-loader": "^0.13.2",
+    "webpack": "^2.2.1"
+  }
+}

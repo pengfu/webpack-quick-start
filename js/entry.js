@@ -1,5 +1,5 @@
 // require('!style!css!./style.css')
-import '../css/style.css'
-document.write('It works.')
-import content from  '../js/module.js'
-document.write(content)
+import '../css/common.css'
+import '../css/main.css'
+import adapter from './adapter'
+adapter(document, window)

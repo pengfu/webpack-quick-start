@@ -49,12 +49,13 @@ exports.loadJS = ({ include, exclude } = {}) => ({
                 test: /\.js$/,
                 include,
                 exclude,
-                use: [{
-                    loader:'babel-loader',
-                    query: {
-                        presets: ['es2015']
-                    }
-                }],
+                // use: [{
+                //     loader:'babel-loader',
+                //     query: {
+                //         presets: ['es2015']
+                //     }
+                // }],
+                use:'babel-loader'
             },
         ],
     },

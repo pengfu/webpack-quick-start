@@ -1,7 +1,2 @@
-#autoprefixer配置，针对微信的项目，故一些浏览器不用支持
->0.1%
-not ie<100 #故意把版本数值放很大，去除支持
-not ie_mob<100
-not edge<100
-not firefox<100
-not opera<100
+> 1%
+Last 2 versions

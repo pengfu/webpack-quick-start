@@ -59,3 +59,15 @@ exports.autoprefix = () => ({
   },
 });
 ```
+
+- browserslist
+
+Autoprefixer and some other tools rely on Browserslist will find its config automatically.
+
+[https://www.npmjs.com/package/browserslist](https://www.npmjs.com/package/browserslist "https://www.npmjs.com/package/browserslist")
+
+- .babelrc
+
+Given webpack supports ES6 modules out of the box
+
+[https://www.npmjs.com/package/babel-preset-env](https://www.npmjs.com/package/babel-preset-env "https://www.npmjs.com/package/babel-preset-env")

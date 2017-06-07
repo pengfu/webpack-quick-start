@@ -33,3 +33,9 @@ Use `webpack-merge` to compose configuration . Below is the useage of webpack-me
 
 Now we have :`webpack.parts.js`  `webpack.config.js`
 
+- ExtractTextPlugin
+
+Webpack provides a means to generate a separate CSS bundles using `ExtractTextPlugin`. It can aggregate multiple CSS files into one. For this reason, it comes with a loader that handles the extraction process. The plugin then picks up the result aggregated by the loader and emits a separate file. Install it,
+
+`npm install extract-text-webpack-plugin --save-dev`
+

@@ -39,3 +39,23 @@ Webpack provides a means to generate a separate CSS bundles using `ExtractTextPl
 
 `npm install extract-text-webpack-plugin --save-dev`
 
+- Autoprefixing
+
+Achieving autoprefixing takes a small addition to the current setup. Install postcss-loader and autoprefixer first:
+
+`npm install postcss-loader autoprefixer --save-dev`
+
+Add a fragment enabling autoprefixing:
+
+webpack.parts.js
+
+```javascript
+exports.autoprefix = () => ({
+  loader: 'postcss-loader',
+  options: {
+    plugins: () => ([
+      require('autoprefixer')(),
+    ]),
+  },
+});
+```

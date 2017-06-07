@@ -1,46 +1,58 @@
-var webpack = require('webpack')
-var HtmlWebpackPlugin = require('html-webpack-plugin');
+const path = require('path');
+const webpack = require('webpack')
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const merge = require('webpack-merge');
 
-module.exports = {
-    entry: './js/entry.js',
-    output: {
-        path: __dirname,
-        filename: '[name].js'
+const parts = require('./webpack.parts');
+
+const PATHS = {
+    app: path.join(__dirname, 'app'),
+    build: path.join(__dirname, 'build'),
+};
+const commonConfig = merge([
+    {
+        entry: './js/entry.js',
+        output: {
+            path: PATHS.build,
+            filename: '[name].[hash].js',
+        },
+        plugins: [
+            new HtmlWebpackPlugin({
+                template: path.join(PATHS.app,'index.html'),
+                filename: path.join(PATHS.build,'index.html'),
+                inject: 'body'
+            }),
+        ],
     },
-    module: {
-        loaders: [
-            {
-                test: /\.css$/,
-                loader: 'style-loader!css-loader!autoprefixer-loader?{browsers:["last 2 version", "> 1%"]}',
-            },
-            {
-                test: /\.js$/,
-                loader: 'babel-loader',
-                query: {
-                    presets: ['es2015']
+    parts.loadCSS(),
+    parts.loadJS()
+]);
+
+const productionConfig = merge([
+    {
+        plugins: [
+            //生成环境使用，可减小压缩体积
+            new webpack.optimize.UglifyJsPlugin({
+                compress: {
+                    warnings: false
                 }
-            }
-        ]
+            }),
+        ],
     },
+]);
 
-    plugins: [
-        //生成环境使用，可减小压缩体积
-        new webpack.optimize.UglifyJsPlugin({
-            compress: {
-                warnings: false
-            }
-        }),
-        new HtmlWebpackPlugin({
-            template: './app/index.html',
-            filename: 'index.html',
-            inject: 'body'
-        }),
-        // new webpack.LoaderOptionsPlugin({
-        //   options: {
-        //     postcss: function () {
-        //       return [autoprefixer];
-        //     },
-        //   }
-        // })
-    ]
-}
+const developmentConfig = merge([
+    parts.devServer({
+        // Customize host/port here if needed
+        host: process.env.HOST,
+        port: process.env.PORT,
+    }),
+]);
+
+module.exports = (env) => {
+    if (env === 'production') {
+        return merge(commonConfig, productionConfig);
+    }
+
+    return merge(commonConfig, developmentConfig);
+};

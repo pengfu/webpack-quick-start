@@ -35,13 +35,16 @@ const productionConfig = merge([
             new webpack.optimize.UglifyJsPlugin({
                 compress: {
                     warnings: false
-                }
+                },
+                sourceMap: true
             }),
         ],
     },
     parts.extractCSS({
         use: ['css-loader', parts.autoprefix()],
     }),
+    parts.generateSourceMaps({ type: 'source-map' }),
+
 ]);
 
 const developmentConfig = merge([
@@ -51,6 +54,7 @@ const developmentConfig = merge([
         port: process.env.PORT,
     }),
     parts.loadCSS(),
+    parts.generateSourceMaps({ type: 'source-map' }),
 ]);
 
 module.exports = (env) => {

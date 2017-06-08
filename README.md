@@ -71,3 +71,20 @@ Autoprefixer and some other tools rely on Browserslist will find its config auto
 Given webpack supports ES6 modules out of the box
 
 [https://www.npmjs.com/package/babel-preset-env](https://www.npmjs.com/package/babel-preset-env "https://www.npmjs.com/package/babel-preset-env")
+
+- SourceMap
+
+Source maps  provide a mapping between the original and the transformed source code so that you can debug in a browser.
+
+When used with  `UglifyJsPlugin` , you should set sourceMap to be true.
+```javascript
+new webpack.optimize.UglifyJsPlugin({
+      compress: {warnings: false},
+      output: {comments: false},
+      sourceMap: true
+    })
+```
+
+Webpack supports  different Source Map Types.
+
+`devtool: 'source-map'`  `devtool: 'cheap-module-source-map'` and so on.

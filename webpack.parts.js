@@ -94,3 +94,7 @@ exports.autoprefix = () => ({
         ]),
     },
 });
+
+exports.generateSourceMaps = ({ type }) => ({
+    devtool: type,
+});

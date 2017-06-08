@@ -13,7 +13,9 @@ const PATHS = {
 };
 const commonConfig = merge([
     {
-        entry: path.join(PATHS.app,'index.js'),
+        entry: {
+            app:path.join(PATHS.app,'index.js')
+        },
         output: {
             path: PATHS.build,
             filename: '[name].[hash].js',
@@ -32,6 +34,9 @@ const commonConfig = merge([
 
 const productionConfig = merge([
     {
+        entry: {
+            vendor: ['react']
+        },
         plugins: [
             //生成环境使用，可减小压缩体积
             new webpack.optimize.UglifyJsPlugin({
@@ -42,9 +47,11 @@ const productionConfig = merge([
             }),
         ],
     },
-    // parts.extractCSS({
-    //     use: ['css-loader', parts.autoprefix()],
-    // }),
+    parts.extractBundles([
+        {
+            name: 'vendor'
+        }
+    ]),
 
     parts.extractCSS({
         use: [

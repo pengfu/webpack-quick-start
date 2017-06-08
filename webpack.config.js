@@ -8,10 +8,12 @@ const parts = require('./webpack.parts');
 const PATHS = {
     app: path.join(__dirname, 'app'),
     build: path.join(__dirname, 'build'),
+    componentPath:path.join(path.resolve(__dirname),'app','components'),
+    stylePath:path.join(path.resolve(__dirname),'app','style')
 };
 const commonConfig = merge([
     {
-        entry: path.join(PATHS.app,'js/entry.js'),
+        entry: path.join(PATHS.app,'index.js'),
         output: {
             path: PATHS.build,
             filename: '[name].[hash].js',
@@ -40,9 +42,28 @@ const productionConfig = merge([
             }),
         ],
     },
+    // parts.extractCSS({
+    //     use: ['css-loader', parts.autoprefix()],
+    // }),
+
     parts.extractCSS({
-        use: ['css-loader', parts.autoprefix()],
+        use: [
+            { loader: 'css-loader', options: { importLoaders: 1 } },
+            'postcss-loader'
+        ],
+        include: PATHS.stylePath,
+        filename: 'style.[hash].css',
     }),
+    parts.extractCSS({
+        use: [
+            { loader: 'css-loader', options: { modules:true,importLoaders: 1 } },
+            'postcss-loader'
+        ],
+        include: PATHS.componentPath,
+        filename: 'component.[hash].css',
+    }),
+    parts.loadImage(),
+    parts.loadResource(),
     parts.generateSourceMaps({ type: 'source-map' }),
 
 ]);
@@ -53,7 +74,22 @@ const developmentConfig = merge([
         host: process.env.HOST,
         port: process.env.PORT,
     }),
-    parts.loadCSS(),
+    parts.loadCSS({
+        use: [  'style-loader',
+                { loader: 'css-loader', options: { modules:true,importLoaders: 1 } },
+                'postcss-loader'
+        ],
+        include: PATHS.componentPath,
+    }),
+    parts.loadCSS({
+        use: [  'style-loader',
+            { loader: 'css-loader', options: { importLoaders: 1 } },
+            'postcss-loader'
+        ],
+        include: PATHS.stylePath,
+    }),
+    parts.loadImage(),
+    parts.loadResource(),
     parts.generateSourceMaps({ type: 'source-map' }),
 ]);
 

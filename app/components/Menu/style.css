@@ -1,0 +1,42 @@
+.menu {
+  flex: 0 0 180px;
+  background-color: #1c283c;
+  color:#717d99;
+}
+
+.avatar {
+  text-align:center;
+  margin-top: 20px;
+  img {
+    width: 120px;
+    height: 120px;
+    border: 1px solid transparent;
+    border-radius: 100%;
+  }
+}
+
+.menu-list {
+  li {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    height: 40px;
+    padding-left:10px;
+    a {
+      color:#717d99;
+      &:hover{
+        color:#fff;
+      }
+
+    }
+
+    &:hover{
+      color: #fff;
+      background-color: #000;
+    }
+  }
+}
+
+.active {
+  color:#fff !important;
+}

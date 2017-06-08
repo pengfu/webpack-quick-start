@@ -1,0 +1,35 @@
+
+.fontello {
+    display: inline-block;
+    margin-right: 10px;
+    font-size: 18px;
+}
+html {
+    height: 100%;
+}
+body {
+    line-height: 1.4;
+    color: #5a6580;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    background-color: #f4f4f3;
+    height: 100%;
+
+}
+
+a, a:link, a:visited, a:focus, a:hover, a:active{
+    text-decoration:none;
+    cursor: pointer;
+}
+
+
+ul {
+    padding-left:0;
+    li {
+        list-style-type:none;
+    }
+}
+
+#root {
+    height: 100%;
+}
+

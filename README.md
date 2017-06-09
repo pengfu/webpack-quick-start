@@ -1,5 +1,7 @@
 # webpack-quick-start
-A quick-start demo for webpack.
+A quick-start demo for webpack.  Let you know how to use webpack.
+
+This article is notes of [https://survivejs.com/webpack](https://survivejs.com/webpack "https://survivejs.com/webpack")
 
 ## How to use
 `npm install && npm start`

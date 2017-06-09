@@ -34,9 +34,9 @@ const commonConfig = merge([
 
 const productionConfig = merge([
     {
-        entry: {
-            vendor: ['react']
-        },
+        // entry: {
+        //     vendor: ['react']
+        // },
         plugins: [
             //生成环境使用，可减小压缩体积
             new webpack.optimize.UglifyJsPlugin({
@@ -49,7 +49,12 @@ const productionConfig = merge([
     },
     parts.extractBundles([
         {
-            name: 'vendor'
+            name: 'vendor',
+            minChunks: ({ resource }) => (
+                resource &&
+                resource.indexOf('node_modules') >= 0 &&
+                resource.match(/\.js$/)
+            ),
         }
     ]),
 

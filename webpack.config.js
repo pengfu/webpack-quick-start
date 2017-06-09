@@ -18,7 +18,7 @@ const commonConfig = merge([
         },
         output: {
             path: PATHS.build,
-            filename: '[name].[hash:8].js',
+            filename: '[name].[chunkhash:8].js',
         },
         plugins: [
             new HtmlWebpackPlugin({
@@ -70,6 +70,10 @@ const productionConfig = merge([
                 resource.indexOf('node_modules') >= 0 &&
                 resource.match(/\.js$/)
             ),
+        },
+        {
+            name: 'manifest',
+            minChunks:Infinity
         }
     ]),
 

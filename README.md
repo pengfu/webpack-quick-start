@@ -136,8 +136,29 @@ The most valuable placeholders are [name], [chunkhash], and [ext].
 
 If you are using ExtractTextPlugin, you should use [contenthash].
 
+- Separating a Manifest
 
+If the hashes webpack generates change, then the manifest changes as well. As a result, the contents of the vendor bundle change, and become invalidated. The problem can be eliminated by extracting the manifest to a file of its own or by writing it inline to the index.html of the project.
 
+```javascript
+const productionConfig = merge([
+  ...
+  parts.extractBundles([
+      {
+        ...
+      },
+
+      {
+        name: 'manifest',
+        minChunks: Infinity,
+      },
+
+  ]),
+  ...
+]);
+```
+
+The name manifest is used by convention. You can use any other name and it will still work. It's important that the definition is after others, though, as it has to capture what has not been extracted yet. minChunks is optional in this case and passing Infinity tells webpack not to move any modules to the resulting bundle.
 
 
 

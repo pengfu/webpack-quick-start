@@ -1,0 +1,8 @@
+.container  {
+  max-width: 1024px;
+  background-color: #fff;
+  margin: 0 auto;
+  min-height: 100%;
+  display: flex;
+
+}

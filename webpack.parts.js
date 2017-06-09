@@ -1,4 +1,5 @@
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const webpack = require('webpack')
 
 exports.devServer = ({ host, port } = {}) => ({
     devServer: {
@@ -13,30 +14,14 @@ exports.devServer = ({ host, port } = {}) => ({
     },
 });
 
-exports.lintJavaScript = ({ include, exclude, options }) => ({
-    module: {
-        rules: [
-            {
-                test: /\.js$/,
-                include,
-                exclude,
-                enforce: 'pre',
-
-                loader: 'eslint-loader',
-                options,
-            },
-        ],
-    },
-});
-
-exports.loadCSS = ({ include, exclude } = {}) => ({
+exports.loadCSS = ({ include, exclude, use } = {}) => ({
     module: {
         rules: [
             {
                 test: /\.css$/,
                 include,
                 exclude,
-                use: ['style-loader', 'css-loader'],
+                use,
             },
         ],
     },
@@ -46,7 +31,7 @@ exports.loadJS = ({ include, exclude } = {}) => ({
     module: {
         rules: [
             {
-                test: /\.js$/,
+                test: /\.jsx?$/,
                 include,
                 exclude,
                 // use: [{
@@ -61,10 +46,10 @@ exports.loadJS = ({ include, exclude } = {}) => ({
     },
 });
 
-exports.extractCSS = ({ include, exclude, use }) => {
+exports.extractCSS = ({ include, exclude, use, filename }) => {
     // Output extracted CSS to a file
     const plugin = new ExtractTextPlugin({
-        filename: '[name].[hash].css',
+        filename
     });
 
     return {
@@ -86,6 +71,45 @@ exports.extractCSS = ({ include, exclude, use }) => {
     };
 };
 
+exports.loadImage = (include, exclude) => ( {
+    module: {
+        rules: [
+            {
+                test: /\.(png|jpe?g|gif)$/,
+                include,
+                exclude,
+                use:[{
+                    loader:'url-loader',
+                    options: {
+                        limit: 1024,
+                        name: 'img/[name].[hash:7].[ext]'
+                    }
+                }]
+            },
+        ],
+    },
+
+}),
+
+exports.loadResource = (include, exclude) => ( {
+    module: {
+        rules: [
+            {
+                test: /\.(svg|woff2?|eot|ttf|otf)(\?.*)?$/,
+                include,
+                exclude,
+                use:[{
+                    loader:'url-loader',
+                    options: {
+                        limit: 10240,
+                    }
+                }]
+            },
+        ],
+    },
+
+}),
+
 exports.autoprefix = () => ({
     loader: 'postcss-loader',
     options: {
@@ -97,4 +121,11 @@ exports.autoprefix = () => ({
 
 exports.generateSourceMaps = ({ type }) => ({
     devtool: type,
+});
+
+
+exports.extractBundles = (bundles) => ({
+    plugins: bundles.map((bundle) => (
+        new webpack.optimize.CommonsChunkPlugin(bundle)
+    )),
 });

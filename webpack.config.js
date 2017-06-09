@@ -8,10 +8,14 @@ const parts = require('./webpack.parts');
 const PATHS = {
     app: path.join(__dirname, 'app'),
     build: path.join(__dirname, 'build'),
+    componentPath:path.join(path.resolve(__dirname),'app','components'),
+    stylePath:path.join(path.resolve(__dirname),'app','style')
 };
 const commonConfig = merge([
     {
-        entry: path.join(PATHS.app,'js/entry.js'),
+        entry: {
+            app:path.join(PATHS.app,'index.js')
+        },
         output: {
             path: PATHS.build,
             filename: '[name].[hash].js',
@@ -30,6 +34,9 @@ const commonConfig = merge([
 
 const productionConfig = merge([
     {
+        // entry: {
+        //     vendor: ['react']
+        // },
         plugins: [
             //生成环境使用，可减小压缩体积
             new webpack.optimize.UglifyJsPlugin({
@@ -40,9 +47,35 @@ const productionConfig = merge([
             }),
         ],
     },
+    parts.extractBundles([
+        {
+            name: 'vendor',
+            minChunks: ({ resource }) => (
+                resource &&
+                resource.indexOf('node_modules') >= 0 &&
+                resource.match(/\.js$/)
+            ),
+        }
+    ]),
+
     parts.extractCSS({
-        use: ['css-loader', parts.autoprefix()],
+        use: [
+            { loader: 'css-loader', options: { importLoaders: 1 } },
+            'postcss-loader'
+        ],
+        include: PATHS.stylePath,
+        filename: 'style.[hash].css',
     }),
+    parts.extractCSS({
+        use: [
+            { loader: 'css-loader', options: { modules:true,importLoaders: 1 } },
+            'postcss-loader'
+        ],
+        include: PATHS.componentPath,
+        filename: 'component.[hash].css',
+    }),
+    parts.loadImage(),
+    parts.loadResource(),
     parts.generateSourceMaps({ type: 'source-map' }),
 
 ]);
@@ -53,7 +86,22 @@ const developmentConfig = merge([
         host: process.env.HOST,
         port: process.env.PORT,
     }),
-    parts.loadCSS(),
+    parts.loadCSS({
+        use: [  'style-loader',
+                { loader: 'css-loader', options: { modules:true,importLoaders: 1 } },
+                'postcss-loader'
+        ],
+        include: PATHS.componentPath,
+    }),
+    parts.loadCSS({
+        use: [  'style-loader',
+            { loader: 'css-loader', options: { importLoaders: 1 } },
+            'postcss-loader'
+        ],
+        include: PATHS.stylePath,
+    }),
+    parts.loadImage(),
+    parts.loadResource(),
     parts.generateSourceMaps({ type: 'source-map' }),
 ]);
 

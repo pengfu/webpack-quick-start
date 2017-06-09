@@ -1,0 +1,11 @@
+.active {
+  color:#fff !important;
+  background: #000 !important;
+
+  a {
+    color:#fff !important;
+    i {
+      color:#fff !important;
+    }
+  }
+}

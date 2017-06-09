@@ -1,5 +1,7 @@
 # webpack-quick-start
-A quick-start demo for webpack.
+A quick-start demo for webpack.  Let you know how to use webpack.
+
+This article is notes of [https://survivejs.com/webpack](https://survivejs.com/webpack "https://survivejs.com/webpack")
 
 ## How to use
 `npm install && npm start`
@@ -88,3 +90,34 @@ new webpack.optimize.UglifyJsPlugin({
 Webpack supports  different Source Map Types.
 
 `devtool: 'source-map'`  `devtool: 'cheap-module-source-map'` and so on.
+
+- Bundle Splitting
+
+So far, the project has only a single entry named as `app`. The configuration tells webpack to traverse dependencies starting from the app entry directory and then to output the resulting bundle below the build directory using the entry name and .js extension.
+
+With bundle splitting, you can push the vendor dependencies to a bundle of their own and benefit from client level caching.
+
+Doing this,
+
+```javascript
+const productionConfig = merge([
+
+  {
+    entry: {
+      vendor: ['react'],
+    },
+  },
+  ...
+]);
+```
+we will get
+
+[![https://user-images.githubusercontent.com/7261281/26921064-750cb094-4c6d-11e7-9e74-c968262dd9bd.png](https://user-images.githubusercontent.com/7261281/26921064-750cb094-4c6d-11e7-9e74-c968262dd9bd.png "https://user-images.githubusercontent.com/7261281/26921064-750cb094-4c6d-11e7-9e74-c968262dd9bd.png")](https://user-images.githubusercontent.com/7261281/26921064-750cb094-4c6d-11e7-9e74-c968262dd9bd.png "https://user-images.githubusercontent.com/7261281/26921064-750cb094-4c6d-11e7-9e74-c968262dd9bd.png")
+
+app.js and vendor.js have separate chunk IDs right now given they are entry chunks of their own.
+
+`CommonsChunkPlugin ` makes things as follow ,
+
+[![https://user-images.githubusercontent.com/7261281/26921579-1a9d7ede-4c6f-11e7-85c5-febb2e4793cb.png](https://user-images.githubusercontent.com/7261281/26921579-1a9d7ede-4c6f-11e7-85c5-febb2e4793cb.png "https://user-images.githubusercontent.com/7261281/26921579-1a9d7ede-4c6f-11e7-85c5-febb2e4793cb.png")](https://user-images.githubusercontent.com/7261281/26921579-1a9d7ede-4c6f-11e7-85c5-febb2e4793cb.png "https://user-images.githubusercontent.com/7261281/26921579-1a9d7ede-4c6f-11e7-85c5-febb2e4793cb.png")
+
+

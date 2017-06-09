@@ -18,7 +18,7 @@ const commonConfig = merge([
         },
         output: {
             path: PATHS.build,
-            filename: '[name].[hash].js',
+            filename: '[name].[hash:8].js',
         },
         plugins: [
             new HtmlWebpackPlugin({
@@ -79,7 +79,7 @@ const productionConfig = merge([
             'postcss-loader'
         ],
         include: PATHS.stylePath,
-        filename: 'style.[hash].css',
+        filename: 'style.[contenthash:8].css',
     }),
     parts.extractCSS({
         use: [
@@ -87,7 +87,7 @@ const productionConfig = merge([
             'postcss-loader'
         ],
         include: PATHS.componentPath,
-        filename: 'component.[hash].css',
+        filename: 'component.[contenthash:8].css',
     }),
     parts.loadImage(),
     parts.loadResource(),

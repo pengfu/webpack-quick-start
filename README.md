@@ -130,6 +130,12 @@ app.js and vendor.js have separate chunk IDs right now given they are entry chun
 
 `webpack.DefinePlugin`
 
+- Adding Hashes to Filenames
+
+The most valuable placeholders are [name], [chunkhash], and [ext].
+
+If you are using ExtractTextPlugin, you should use [contenthash].
+
 
 
 

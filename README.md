@@ -120,4 +120,48 @@ app.js and vendor.js have separate chunk IDs right now given they are entry chun
 
 [![https://user-images.githubusercontent.com/7261281/26921579-1a9d7ede-4c6f-11e7-85c5-febb2e4793cb.png](https://user-images.githubusercontent.com/7261281/26921579-1a9d7ede-4c6f-11e7-85c5-febb2e4793cb.png "https://user-images.githubusercontent.com/7261281/26921579-1a9d7ede-4c6f-11e7-85c5-febb2e4793cb.png")](https://user-images.githubusercontent.com/7261281/26921579-1a9d7ede-4c6f-11e7-85c5-febb2e4793cb.png "https://user-images.githubusercontent.com/7261281/26921579-1a9d7ede-4c6f-11e7-85c5-febb2e4793cb.png")
 
+- Minifying
+
+`babili-webpack-plugin`
+
+`optimize-css-assets-webpack-plugin`
+
+`cssnano`
+
+`webpack.DefinePlugin`
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

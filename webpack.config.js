@@ -37,16 +37,31 @@ const productionConfig = merge([
         // entry: {
         //     vendor: ['react']
         // },
-        plugins: [
-            //生成环境使用，可减小压缩体积
-            new webpack.optimize.UglifyJsPlugin({
-                compress: {
-                    warnings: false
-                },
-                sourceMap: true
-            }),
-        ],
+        // plugins: [
+        //     //生成环境使用，可减小压缩体积
+        //     new webpack.optimize.UglifyJsPlugin({
+        //         compress: {
+        //             warnings: false
+        //         },
+        //         sourceMap: true
+        //     }),
+        // ],
     },
+    parts.minifyJavaScript(),
+    parts.setFreeVariable(
+        'process.env.NODE_ENV',
+        'production'
+    ),
+    parts.minifyCSS({
+        options: {
+            discardComments: {
+                removeAll: true,
+            },
+            // Run cssnano in safe mode to avoid
+            // potentially unsafe transformations.
+            safe: true,
+        },
+    }),
     parts.extractBundles([
         {
             name: 'vendor',

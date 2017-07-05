@@ -7,7 +7,7 @@ const parts = require('./webpack.parts');
 
 const PATHS = {
     app: path.join(__dirname, 'app'),
-    build: path.join(__dirname, 'build'),
+    build: path.join(__dirname, 'dist'),
     componentPath:path.join(path.resolve(__dirname),'app','components'),
     stylePath:path.join(path.resolve(__dirname),'app','style')
 };
@@ -19,6 +19,9 @@ const commonConfig = merge([
         output: {
             path: PATHS.build,
             filename: '[name].[chunkhash:8].js',
+        },
+        resolve: {
+            extensions: ['.js', '.jsx'],
         },
         plugins: [
             new HtmlWebpackPlugin({

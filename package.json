@@ -4,7 +4,8 @@
   "description": "A quick-start demo.",
   "main": "index.js",
   "scripts": {
-    "clean": "rimraf build",
+    "clean": "rimraf dist",
+    "stats": "npm run clean && webpack --env production --profile --json > stats.json",
     "start": "webpack-dev-server --progress --colors --env development",
     "build": "npm run clean && webpack --env production"
   },

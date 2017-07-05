@@ -7,6 +7,6 @@ require('./style/normalize.css')
 require('./style/app.css')
 require ('./style/fontello/css/fontello.css')
 require('./style/transition.css')
-import App from './components/App.jsx';
+import App from './components/App';
 
 ReactDOM.render(<App />, document.getElementById('root'));
